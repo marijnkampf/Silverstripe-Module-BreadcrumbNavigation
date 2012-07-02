@@ -17,6 +17,8 @@ Self contained Breadcrum Navigation module, allowing you to control breadcrumbs 
 
  * SilverStripe Trunk 2.4
 
+For SS 3.0 version see https://github.com/marijnkampf/Silverstripe-Module-BreadcrumbNavigation/
+
 ## Install and setup
 
  * BreadcrumbNavigation should be in your sites root folder.
