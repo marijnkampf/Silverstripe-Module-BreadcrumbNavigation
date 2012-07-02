@@ -1,4 +1,4 @@
-# Breadcrumb Navigation
+# Breadcrumb Navigation SilverStripe 3.0
 
 ## Maintainers
 
@@ -15,7 +15,7 @@ Self contained Breadcrum Navigation module, allowing you to control breadcrumbs 
 
 ## Requirements
 
- * SilverStripe Trunk
+ * SilverStripe Trunk SilverStripe 3.0
 
 ## Install and setup
 
@@ -34,7 +34,7 @@ Self contained Breadcrum Navigation module, allowing you to control breadcrumbs 
     <% include BreadcrumbNavigationTemplateAllLinked %>
     
 ## Advanced use
-If you would like to add additional items to the Breadcrumb trail (e.g. for URL parameter actions) you can use AddAfter($object) and AddBefore($object) functions. 
+If you would like to add additional items to the Breadcrumb trail (e.g. for URL parameter actions) you can use AddBreadcrumbAfter($object) and AddBreadcrumbBefore($object) functions. 
 You only need to define the attributes you use in your templates. These are Link and MenuTitle for the supplied templates. 
 Define isSelf if you are not linking the current page.
 
@@ -42,5 +42,5 @@ Define isSelf if you are not linking the current page.
 	$do->Link = $this->Link() . "show";
 	$do->MenuTitle = "Menu title";
 	$do->isSelf = true;
-	$this->AddAfter($do);
+	$this->AddBreadcrumbAfter($do);
 

@@ -1,10 +1,10 @@
 <?php
 
 /**
- * @package BreadcrumbNavigation
+ * @package BreadcrumbNavigation SS 3.0
  */
 
-class BreadcrumbNavigation extends DataObjectDecorator {
+class BreadcrumbNavigation extends DataExtension {
 	private $initialised = false;
 
 	static $includeHome = true;
@@ -18,51 +18,36 @@ class BreadcrumbNavigation extends DataObjectDecorator {
 
 	public $parentPages = null;
 	protected $isSelf = false;
-
-	function __construct($record = null, $isSingleton = false) {
-		parent::__construct($record, $isSingleton);
-	}
-
+	
 	/**
 	 * Initialises the BreadcrumbNavigation class. Only called when Breadcrumbs are actually used.
 	 *
-	 * @return the number of parent pages
+	 * @return ArrayList of parent pages
 	 */
-	private function initialise() {
+	function Pages() {
 		if (!$this->initialised) {
-			$this->parentPages = new DataObjectSet();
+			$this->parentPages = array();
 			$page = $this->owner;
 			$i = 0;
 			while(
 				$page
-				&& (!BreadcrumbNavigation::$maxDepth || sizeof($this->parentPages) < BreadcrumbNavigation::$maxDepth)
-				&& (!BreadcrumbNavigation::$stopAtPageType || $page->ClassName != BreadcrumbNavigation::$stopAtPageType)
+				&& (!self::$maxDepth || sizeof($this->parentPages) < self::$maxDepth)
+				&& (!self::$stopAtPageType || $page->ClassName != self::$stopAtPageType)
 			) {
-				if(BreadcrumbNavigation::$showHidden || $page->ShowInMenus || ($page->ID == $this->owner->ID)) {
-					if($page->URLSegment == BreadcrumbNavigation::$homeURLSegment) $this->hasHome = true;
+				if(self::$showHidden || $page->ShowInMenus || ($page->ID == $this->owner->ID)) {
+					if($page->URLSegment == self::$homeURLSegment) $this->hasHome = true;
 					if ($page->ID == $this->owner->ID) $page->isSelf = true;
 
-					if ((!$page->isSelf) || ($page->isSelf) && (BreadcrumbNavigation::$includeSelf))
-						$this->parentPages->unshift($page);
+					if ((!$page->isSelf) || ($page->isSelf) && (self::$includeSelf))
+						array_unshift($this->parentPages, $page);
 				}
 				$page = $page->Parent;
 			}
-			if ((!$this->hasHome) && (BreadcrumbNavigation::$includeHome)) $this->parentPages->unshift(DataObject::get_one('SiteTree', "`URLSegment` = '" . BreadcrumbNavigation::$homeURLSegment . "'"));
+			if ((!$this->hasHome) && (self::$includeHome)) array_unshift($this->parentPages, DataObject::get_one('SiteTree', "`URLSegment` = '" . self::$homeURLSegment . "'"));
 
 			$this->initialised = true;
 		}
-		return count($this->parentPages);
-	}
-
-
-	/**
-	 * Return parent pages for Breadcrumb Navigation.
-	 *
-	 * @return DataObjectSet of parent pages
-	 */
-	function BreadcrumbNavigation() {
-		$this->initialise();
-		return $this->parentPages;
+		return  new ArrayList($this->parentPages);
 	}
 
 	/**
@@ -70,13 +55,13 @@ class BreadcrumbNavigation extends DataObjectDecorator {
 	 *
 	 * @param mixed $object array of or single object to add
 	 */
-	function AddAfter($object) {
-		$this->initialise();
+	function AddBreadcrumbAfter($object) {
+		$this->Pages();
 		foreach($this->parentPages as $page) {
 			$page->isSelf = false;
 		}
-		if (is_array($object)) foreach ($object as $obj) $this->parentPages->push($obj);
-		else $this->parentPages->push($object);
+		if (is_array($object)) foreach ($object as $obj) array_push($this->parentPages, $obj);
+		else array_push($this->parentPages, $object);
 	}
 
 	/**
@@ -84,12 +69,12 @@ class BreadcrumbNavigation extends DataObjectDecorator {
 	 *
 	 * @param mixed $object array of or single object to add
 	 */
-	function AddBefore($object) {
-		$this->initialise();
+	function AddBreadcrumbBefore($object) {
+		$this->Pages();
 		foreach($this->parentPages as $page) {
 			$page->isSelf = false;
 		}
-		if (is_array($object)) foreach ($object as $obj) $this->parentPages->unshift($obj);
-		else $this->parentPages->unshift($object);
+		if (is_array($object)) foreach ($object as $obj) array_unshift($this->parentPages, $obj);
+		else array_unshift($this->parentPages, $object);
 	}
 }
