@@ -1,4 +1,4 @@
-# Breadcrumb Navigation
+# Breadcrumb Navigation SilverStripe 2.4
 
 ## Maintainers
 
@@ -15,7 +15,7 @@ Self contained Breadcrum Navigation module, allowing you to control breadcrumbs 
 
 ## Requirements
 
- * SilverStripe Trunk
+ * SilverStripe Trunk 2.4
 
 ## Install and setup
 
