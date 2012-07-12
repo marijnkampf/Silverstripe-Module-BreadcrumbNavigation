@@ -54,27 +54,31 @@ class BreadcrumbNavigation extends DataExtension {
 	 * Adds one or more pages as child(ren) to end of parent pages.
 	 *
 	 * @param mixed $object array of or single object to add
+	 * @param bool $unique Removes duplicate values from breadcrumb trail
 	 */
-	function AddBreadcrumbAfter($object) {
+	function AddBreadcrumbAfter($object, $unique = false) {
 		$this->Pages();
 		foreach($this->parentPages as $page) {
 			$page->isSelf = false;
 		}
 		if (is_array($object)) foreach ($object as $obj) array_push($this->parentPages, $obj);
 		else array_push($this->parentPages, $object);
+		if ($unique) $this->parentPages = array_unique($this->parentPages);
 	}
 
 	/**
 	 * Adds one or more pages as parent(s) to beginning of parent pages.
 	 *
 	 * @param mixed $object array of or single object to add
+	 * @param bool $unique Removes duplicate values from breadcrumb trail
 	 */
-	function AddBreadcrumbBefore($object) {
+	function AddBreadcrumbBefore($object, $unique = false) {
 		$this->Pages();
 		foreach($this->parentPages as $page) {
 			$page->isSelf = false;
 		}
 		if (is_array($object)) foreach ($object as $obj) array_unshift($this->parentPages, $obj);
 		else array_unshift($this->parentPages, $object);
+		if ($unique) $this->parentPages = array_unique($this->parentPages);
 	}
 }
