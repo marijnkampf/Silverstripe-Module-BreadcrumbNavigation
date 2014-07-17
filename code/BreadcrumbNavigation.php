@@ -18,7 +18,7 @@ class BreadcrumbNavigation extends DataExtension {
 
 	public $parentPages = null;
 	protected $isSelf = false;
-	
+
 	/**
 	 * Initialises the BreadcrumbNavigation class. Only called when Breadcrumbs are actually used.
 	 *
@@ -49,6 +49,14 @@ class BreadcrumbNavigation extends DataExtension {
 		}
 		return  new ArrayList($this->parentPages);
 	}
+
+  static function CreateBreadcrumb($menuTitle, $link, $isSelf) {
+		$do = new DataObject();
+		$do->Link =  $link;
+		$do->MenuTitle = $menuTitle;
+		$do->isSelf = $isSelf;
+		return $do;
+  }
 
 	/**
 	 * Adds one or more pages as child(ren) to end of parent pages.
