@@ -1,17 +1,38 @@
 {
-	"name": "exadium/breadcrumbnavigation",
-	"description": "Self contained Breadcrum Navigation module, allowing you to control the breadcrumbs look and feel using templates, and add additional levels of bread crumbs for e.g. dataobjects.",
-	"type": "silverstripe-module",
-	"keywords": ["silverstripe", "module", "bread crumb navigation", "navigation", "breadcrumb", "bread crumbs"],
-	"authors": [
-	{
-		"name": "Marijn Kampf",
-		"email": "info@exadium.com"
-	}
-	],
+    "name": "exadium/breadcrumbnavigation",
+    "description": "Self contained Breadcrum Navigation module, allowing you to control the breadcrumbs look and feel using templates, and add additional levels of bread crumbs for e.g. dataobjects.",
+    "type": "silverstripe-module",
+    "keywords": [
+        "silverstripe",
+        "module",
+        "bread crumb navigation",
+        "navigation",
+        "breadcrumb",
+        "bread crumbs"
+    ],
+    "authors": [
+        {
+            "name": "Marijn Kampf",
+            "email": "info@exadium.com"
+        }
+    ],
+    "require": {
+        "php": "~5.6|~7",
+        "silverstripe/framework": "~4"
+    },
+    "require-dev": {},
 
-	"require":
-	{
-    "silverstripe/cms": "3.*"
-	}
+    "autoload": {
+        "psr-4": {
+            "Exadium\\BreadcrumbNavigation\\": "src/",
+            "Exadium\\BreadcrumbNavigation\\Tests\\": "tests/"
+        }
+    },
+
+
+    "extra": {
+        "installer-name": "breadcrumb-navigation"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

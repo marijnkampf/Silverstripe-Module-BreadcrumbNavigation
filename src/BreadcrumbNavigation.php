@@ -1,10 +1,12 @@
 <?php
 
 /**
- * @package BreadcrumbNavigation SS 3.0
+ * @package BreadcrumbNavigation SS 4.0
  */
+namespace Exadium\BreadcrumbNavigation;
 
-class BreadcrumbNavigation extends DataExtension
+
+class BreadcrumbNavigation extends \SilverStripe\ORM\DataExtension
 {
     private $initialised = false;
 
