@@ -5,7 +5,6 @@
  */
 namespace Exadium\BreadcrumbNavigation;
 
-
 class BreadcrumbNavigation extends \SilverStripe\ORM\DataExtension
 {
     private $initialised = false;
@@ -33,8 +32,7 @@ class BreadcrumbNavigation extends \SilverStripe\ORM\DataExtension
             $this->parentPages = array();
             $page = $this->owner;
             $i = 0;
-            while (
-                $page
+            while ($page
                 && (!self::$maxDepth || sizeof($this->parentPages) < self::$maxDepth)
                 && (!self::$stopAtPageType || $page->ClassName != self::$stopAtPageType)
             ) {
