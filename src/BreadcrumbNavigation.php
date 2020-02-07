@@ -35,7 +35,7 @@ class BreadcrumbNavigation extends \SilverStripe\ORM\DataExtension
     public function Pages()
     {
         if (!$this->initialised) {
-            $this->parentPages = array();
+            $this->parentPages = [];
             $page = $this->owner;
             $i = 0;
             while ($page
