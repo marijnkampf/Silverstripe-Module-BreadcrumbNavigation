@@ -5,7 +5,7 @@ Name: exadium-breadcrumbs-extensions
 #  extensions:
 #    ['MapExtension']
 
-\SilverStripe\CMS\Model\SiteTree:
+SilverStripe\CMS\Model\SiteTree:
   extensions:
     - \Exadium\BreadcrumbNavigation\BreadcrumbNavigation
 
