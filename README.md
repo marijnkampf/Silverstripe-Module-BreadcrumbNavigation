@@ -45,13 +45,25 @@ For SS 2.4 version see https://github.com/marijnkampf/Silverstripe-Module-Breadc
 ## Install and setup
 
  * BreadcrumbNavigation should be in your sites root folder.
- * Set options in your mysite/_config.php
-			BreadcrumbNavigation::$includeHome = false;
-			BreadcrumbNavigation::$includeSelf = true;
-			BreadcrumbNavigation::$maxDepth = 20;
-			BreadcrumbNavigation::$stopAtPageType = false;
-			BreadcrumbNavigation::$showHidden = false;
-			BreadcrumbNavigation::$homeURLSegment = 'home';
+ * Set options in your `mysite/_config/breadcrumbs.yml`
+
+```yaml
+---
+Name: my-breadcrumbs-settings
+After:
+  - exadium-breadcrumbs-settings
+---
+
+#Override values here
+Exadium\BreadcrumbNavigation\BreadcrumbNavigation:
+  includeHome: false
+  includeSelf: true
+  maxDepth: 10
+  stopAtPageType: false
+  showHidden: false
+  homeURLSegment: home
+
+```
 
  * In your template include either:
     <% include BreadcrumbNavigationTemplate %>
@@ -63,9 +75,12 @@ If you would like to add additional items to the Breadcrumb trail (e.g. for URL 
 You only need to define the attributes you use in your templates. These are Link and MenuTitle for the supplied templates.
 Define isSelf if you are not linking the current page.
 
+```php
 	$do = new DataObject();
 	$do->Link = $this->Link() . "show";
 	$do->MenuTitle = "Menu title";
 	$do->isSelf = true;
 	$this->AddBreadcrumbAfter($do);
+```
+
 
