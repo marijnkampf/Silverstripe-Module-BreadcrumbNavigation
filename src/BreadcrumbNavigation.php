@@ -5,16 +5,22 @@
  */
 namespace Exadium\BreadcrumbNavigation;
 
+use SilverStripe\CMS\Model\SiteTree;
+use SilverStripe\ORM\ArrayList;
+use SilverStripe\ORM\DataObject;
+
 class BreadcrumbNavigation extends \SilverStripe\ORM\DataExtension
 {
     private $initialised = false;
 
-    public static $includeHome = true;
-    public static $includeSelf = true;
-    public static $maxDepth = 20;
-    public static $stopAtPageType = false;
-    public static $showHidden = false;
-    public static $homeURLSegment = 'home';
+    private static $includeHome = true;
+    private static $includeSelf = true;
+    private static $maxDepth = 20;
+    private static $stopAtPageType = false;
+    private static $showHidden = false;
+    private static $homeURLSegment = 'home';
+
+
 
     public $hasHome = false;
 
@@ -44,14 +50,15 @@ class BreadcrumbNavigation extends \SilverStripe\ORM\DataExtension
                         $page->isSelf = true;
                     }
 
-                    if ((!$page->isSelf) || ($page->isSelf) && (self::$includeSelf)) {
+                    if ((!$page->isSelf) || (($page->isSelf) && (self::$includeSelf))) {
                         array_unshift($this->parentPages, $page);
                     }
                 }
                 $page = $page->Parent;
             }
             if ((!$this->hasHome) && (self::$includeHome)) {
-                array_unshift($this->parentPages, DataObject::get_one('SiteTree', "`URLSegment` = '" . self::$homeURLSegment . "'"));
+                array_unshift($this->parentPages,
+                    SiteTree::get()->filter('URLSegment', self:: $homeURLSegment)->first());
             }
 
             $this->initialised = true;
