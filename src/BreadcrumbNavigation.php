@@ -15,7 +15,7 @@ class BreadcrumbNavigation extends \SilverStripe\ORM\DataExtension
 
     private static $includeHome = true;
     private static $includeSelf = true;
-    private static $maxDepth = 20;
+    private static $maxDepth = 10;
     private static $stopAtPageType = false;
     private static $showHidden = false;
     private static $homeURLSegment = 'home';
@@ -26,6 +26,16 @@ class BreadcrumbNavigation extends \SilverStripe\ORM\DataExtension
 
     public $parentPages = null;
     protected $isSelf = false;
+
+
+    /**
+     * Reset the breadcrumbs.  Used during testing
+     * @todo Inject this method
+     */
+    public function resetBreadcrumbs()
+    {
+        $this->initialised = false;
+    }
 
     /**
      * Initialises the BreadcrumbNavigation class. Only called when Breadcrumbs are actually used.
@@ -39,7 +49,7 @@ class BreadcrumbNavigation extends \SilverStripe\ORM\DataExtension
             $page = $this->owner;
             $i = 0;
             while ($page
-                && (!self::$maxDepth || sizeof($this->parentPages) < self::$maxDepth)
+                && (!self::$maxDepth || count($this->parentPages) < self::$maxDepth)
                 && (!self::$stopAtPageType || $page->ClassName != self::$stopAtPageType)
             ) {
                 if (self::$showHidden || $page->ShowInMenus || ($page->ID == $this->owner->ID)) {
