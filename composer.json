@@ -1,7 +1,7 @@
 {
     "name": "exadium/breadcrumbnavigation",
     "description": "Self contained Breadcrum Navigation module, allowing you to control the breadcrumbs look and feel using templates, and add additional levels of bread crumbs for e.g. dataobjects.",
-    "type": "silverstripe-module",
+    "type": "silverstripe-vendormodule",
     "keywords": [
         "silverstripe",
         "module",
