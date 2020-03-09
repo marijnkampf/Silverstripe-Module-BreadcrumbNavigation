@@ -1,24 +1,41 @@
 <?php
 
 /**
- * @package BreadcrumbNavigation SS 3.0
+ * @package BreadcrumbNavigation SS 4.0
  */
+namespace Exadium\BreadcrumbNavigation;
 
-class BreadcrumbNavigation extends DataExtension
+use SilverStripe\CMS\Model\SiteTree;
+use SilverStripe\ORM\ArrayList;
+use SilverStripe\ORM\DataObject;
+
+class BreadcrumbNavigation extends \SilverStripe\ORM\DataExtension
 {
     private $initialised = false;
 
-    public static $includeHome = true;
-    public static $includeSelf = true;
-    public static $maxDepth = 20;
-    public static $stopAtPageType = false;
-    public static $showHidden = false;
-    public static $homeURLSegment = 'home';
+    private static $includeHome = true;
+    private static $includeSelf = true;
+    private static $maxDepth = 10;
+    private static $stopAtPageType = false;
+    private static $showHidden = false;
+    private static $homeURLSegment = 'home';
+
+
 
     public $hasHome = false;
 
     public $parentPages = null;
     protected $isSelf = false;
+
+
+    /**
+     * Reset the breadcrumbs.  Used during testing
+     * @todo Inject this method
+     */
+    public function resetBreadcrumbs()
+    {
+        $this->initialised = false;
+    }
 
     /**
      * Initialises the BreadcrumbNavigation class. Only called when Breadcrumbs are actually used.
@@ -28,12 +45,11 @@ class BreadcrumbNavigation extends DataExtension
     public function Pages()
     {
         if (!$this->initialised) {
-            $this->parentPages = array();
+            $this->parentPages = [];
             $page = $this->owner;
             $i = 0;
-            while (
-                $page
-                && (!self::$maxDepth || sizeof($this->parentPages) < self::$maxDepth)
+            while ($page
+                && (!self::$maxDepth || count($this->parentPages) < self::$maxDepth)
                 && (!self::$stopAtPageType || $page->ClassName != self::$stopAtPageType)
             ) {
                 if (self::$showHidden || $page->ShowInMenus || ($page->ID == $this->owner->ID)) {
@@ -44,14 +60,15 @@ class BreadcrumbNavigation extends DataExtension
                         $page->isSelf = true;
                     }
 
-                    if ((!$page->isSelf) || ($page->isSelf) && (self::$includeSelf)) {
+                    if ((!$page->isSelf) || (($page->isSelf) && (self::$includeSelf))) {
                         array_unshift($this->parentPages, $page);
                     }
                 }
                 $page = $page->Parent;
             }
             if ((!$this->hasHome) && (self::$includeHome)) {
-                array_unshift($this->parentPages, DataObject::get_one('SiteTree', "`URLSegment` = '" . self::$homeURLSegment . "'"));
+                array_unshift($this->parentPages,
+                    SiteTree::get()->filter('URLSegment', self:: $homeURLSegment)->first());
             }
 
             $this->initialised = true;

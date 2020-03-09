@@ -1,0 +1,16 @@
+Page:
+  home:
+    Title: Home
+    Content: This is the home page
+  topLevelPage:
+    Title: Top Level
+    Content: This is a test page for the top level below home
+    Parent: =>Page.home
+  secondLevelPage:
+    Title: Second Level
+    Content: This is a test page for the second level
+    Parent: =>Page.topLevelPage
+  thirdLevelPage:
+    Title: Third Level
+    Content: This is a test page for the third level
+    Parent: =>Page.secondLevelPage

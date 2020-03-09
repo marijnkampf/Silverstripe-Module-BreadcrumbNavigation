@@ -1,0 +1,10 @@
+---
+Name: exadium-breadcrumbs-settings
+---
+Exadium\BreadcrumbNavigation\BreadcrumbNavigation:
+  includeHome: false
+  includeSelf: true
+  maxDepth: 10
+  stopAtPageType: false
+  showHidden: false
+  homeURLSegment: home

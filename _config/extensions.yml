@@ -1,0 +1,11 @@
+---
+Name: exadium-breadcrumbs-extensions
+---
+#FlickrPhoto:
+#  extensions:
+#    ['MapExtension']
+
+SilverStripe\CMS\Model\SiteTree:
+  extensions:
+    - \Exadium\BreadcrumbNavigation\BreadcrumbNavigation
+
