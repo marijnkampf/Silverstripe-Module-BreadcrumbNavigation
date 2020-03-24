@@ -38,7 +38,9 @@ Self contained Breadcrum Navigation module, allowing you to control breadcrumbs 
 
 ## Requirements
 
- * SilverStripe Trunk SilverStripe 3.0
+ * SilverStripe Trunk SilverStripe 4.0
+ 
+For SS 3 version see https://github.com/marijnkampf/Silverstripe-Module-BreadcrumbNavigation.git
 
 For SS 2.4 version see https://github.com/marijnkampf/Silverstripe-Module-BreadcrumbNavigation/tree/2.4
 
