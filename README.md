@@ -40,7 +40,7 @@ Self contained Breadcrum Navigation module, allowing you to control breadcrumbs 
 
  * SilverStripe Trunk SilverStripe 4.0
  
-For SS 3 version see https://github.com/marijnkampf/Silverstripe-Module-BreadcrumbNavigation.git
+For SS 3 version see https://github.com/marijnkampf/Silverstripe-Module-BreadcrumbNavigation/tree/SS3
 
 For SS 2.4 version see https://github.com/marijnkampf/Silverstripe-Module-BreadcrumbNavigation/tree/2.4
 
